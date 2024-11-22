@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Books</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for book in books %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Description: {{ book.description }}</p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <!-- View and Download buttons for all users -->
+                    <a href="{{ book.file.url }}" target="_blank" class="btn btn-primary">View Book</a>
+                    <a href="{{ book.file.url }}" download class="btn btn-success">Download Book</a>
+
+                    <!-- Edit and Delete buttons for admins only -->
+                    {% if user.is_staff %}
+                        <a href="{% url 'edit_item' 'book' book.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'delete_item' 'book' book.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

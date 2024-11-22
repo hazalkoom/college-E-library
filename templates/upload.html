@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-5">Upload Books and Lectures</h2>
+
+    <div class="row justify-content-center">
+        <!-- Upload Book Form -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4>Upload Book</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ book_form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Upload Book</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Lecture Form -->
+        <div class="col-md-6 mt-4 mt-md-0">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h4>Upload Lecture</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ lecture_form.as_p }}
+                        <button type="submit" class="btn btn-info w-100">Upload Lecture</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

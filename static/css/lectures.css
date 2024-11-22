@@ -1,0 +1,25 @@
+.subject-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.card-body:hover {
+    background-color: #e9ecef;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 0.9rem;
+}

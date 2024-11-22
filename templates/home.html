@@ -1,0 +1,31 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Welcome to the College Portal</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Books</h5>
+                    <p class="card-text">Explore all available books for your courses.</p>
+                    <a href="/books/" class="btn btn-primary">View Books</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Lectures</h5>
+                    <p class="card-text">Access all the lectures and study materials.</p>
+                    <a href="/lectures/" class="btn btn-primary">View Lectures</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
