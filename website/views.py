@@ -4,7 +4,7 @@ from .models import Books, Lectures, Subject
 from .forms import BookUploadForm, LectureUploadForm
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib import messages
 
 
 # Create your views here.
@@ -64,32 +64,34 @@ def lectures(request):
         'lectures': lectures_by_subject
     })
     
-@staff_member_required    
+@staff_member_required
 def upload_page(request):
-    # Instantiate forms
+    # Initialize empty forms
     book_form = BookUploadForm()
     lecture_form = LectureUploadForm()
 
+    # Handle POST request for book or lecture form submission
     if request.method == 'POST':
-        if 'book_submit' in request.POST:  # Check if the book form is submitted
+        if 'book_submit' in request.POST:
             book_form = BookUploadForm(request.POST, request.FILES)
             if book_form.is_valid():
                 book_form.save()
-                print("Book uploaded successfully")  # Debug message
-                return redirect('upload')  # Redirect to the upload page after success
-        elif 'lecture_submit' in request.POST:  # Check if the lecture form is submitted
+                messages.success(request, 'Book uploaded successfully.')
+                return redirect('upload_page')  # Redirect after success
+
+        elif 'lecture_submit' in request.POST:
             lecture_form = LectureUploadForm(request.POST, request.FILES)
             if lecture_form.is_valid():
                 lecture_form.save()
-                print("Lecture uploaded successfully")  # Debug message
-                return redirect('upload')  # Redirect to the upload page after success
+                messages.success(request, 'Lecture uploaded successfully.')
+                return redirect('upload_page')  # Redirect after success
 
-    # If the request is GET or form is invalid, render the page with the forms
+    # Render page with both forms
     return render(request, 'upload.html', {
         'book_form': book_form,
         'lecture_form': lecture_form,
     })
-
+    
 @staff_member_required
 def delete_item(request, item_type, item_id):
     if item_type == 'book':
@@ -126,3 +128,28 @@ def edit_item(request, item_type, item_id):
         form = form_class(instance=item)
     
     return render(request, 'edit_item.html', {'form': form, 'item': item, 'item_type': item_type})   
+
+@staff_member_required
+def upload_book(request):
+    if request.method == 'POST':
+        form = BookUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Book uploaded successfully.')
+            return redirect('upload')  # Redirect back to the upload page
+    else:
+        form = BookUploadForm()
+    return render(request, 'upload.html', {'book_form': form, 'lecture_form': LectureUploadForm()})
+
+
+@staff_member_required
+def upload_lecture(request):
+    if request.method == 'POST':
+        form = LectureUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Lecture uploaded successfully.')
+            return redirect('upload')  # Redirect back to the upload page
+    else:
+        form = LectureUploadForm()
+    return render(request, 'upload.html', {'lecture_form': form, 'book_form': BookUploadForm()})

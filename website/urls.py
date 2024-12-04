@@ -13,6 +13,8 @@ urlpatterns = [
     
     # pages for admins
     path('upload/', views.upload_page, name='upload'),
+    path('upload/book/', views.upload_book, name='upload_book'),
+    path('upload/lecture/', views.upload_lecture, name='upload_lecture'),
     path('logout/', views.logout_view, name='logout'),  # This is the logout URL
     path('delete/<str:item_type>/<int:item_id>/', views.delete_item, name='delete_item'),
     path('edit/<str:item_type>/<int:item_id>/', views.edit_item, name='edit_item'),

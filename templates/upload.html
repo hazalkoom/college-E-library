@@ -5,14 +5,20 @@
     <h2 class="text-center text-primary mb-5">Upload Books and Lectures</h2>
 
     <div class="row justify-content-center">
+        <!-- Button Choices -->
+        <div class="d-flex justify-content-around mb-4">
+            <button class="btn btn-primary" id="show-book-form">Upload Book</button>
+            <button class="btn btn-info" id="show-lecture-form">Upload Lecture</button>
+        </div>
+
         <!-- Upload Book Form -->
-        <div class="col-md-6">
+        <div class="col-md-6" id="book-form" style="display: none;">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                     <h4>Upload Book</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'upload_book' %}">
                         {% csrf_token %}
                         {{ book_form.as_p }}
                         <button type="submit" class="btn btn-primary w-100">Upload Book</button>
@@ -22,13 +28,13 @@
         </div>
 
         <!-- Upload Lecture Form -->
-        <div class="col-md-6 mt-4 mt-md-0">
+        <div class="col-md-6" id="lecture-form" style="display: none;">
             <div class="card shadow-sm">
                 <div class="card-header bg-info text-white">
                     <h4>Upload Lecture</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" action="{% url 'upload_lecture' %}">
                         {% csrf_token %}
                         {{ lecture_form.as_p }}
                         <button type="submit" class="btn btn-info w-100">Upload Lecture</button>
@@ -38,7 +44,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Show and hide forms on button click
+    document.getElementById('show-book-form').addEventListener('click', function () {
+        document.getElementById('book-form').style.display = 'block';
+        document.getElementById('lecture-form').style.display = 'none';
+    });
+
+    document.getElementById('show-lecture-form').addEventListener('click', function () {
+        document.getElementById('lecture-form').style.display = 'block';
+        document.getElementById('book-form').style.display = 'none';
+    });
+</script>
 {% endblock %}
+
+
 
 
 
